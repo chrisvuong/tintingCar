@@ -1,0 +1,89 @@
+<style>
+/* .slidecontainer {
+  width: 100%;
+} */
+.slider {
+  -webkit-appearance: none;
+width: 500px;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+
+</style>
+
+<canvas id="myCanvas" width="500" height="333" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+<div class="slidecontainer">
+    <input type="range" min="1" max="4" value="1" class="slider" id="myRange" oninput= "draw()">
+
+
+    
+</div>
+<script>
+    var car = new Object()
+    const x = document.getElementById("myRange");
+    const sedan = {
+        Img : "xesedan.png",
+        1: ['sedan/front/notint.png','sedan/rear/notint.png'],
+        2: ['sedan/front/35.png','sedan/rear/35.png'],
+        x: 100, y:150, w:300,h:200
+    }
+    const background = {
+        Img: "sky.jpg",
+        x: 0, y:0, w:500,h:333
+    }
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    make_base();
+    
+
+    tint = new Image();
+
+    function make_base(){
+        base_image = new Image();
+        base_image.src = background.Img;
+        carType = new Image();
+        carType.src = sedan.Img;
+        front = new Image();
+        front.src = sedan[1][0] ;
+        rear = new Image();
+        rear.src = sedan[1][1] ;
+        base_image.onload = function(){
+            ctx.drawImage(base_image, 0, 0, 500,333);
+            ctx.drawImage(carType, 100, 150, 300,200);
+            ctx.drawImage(front, 100, 150, 300,200);
+            ctx.drawImage(rear, 100, 150, 300,200);
+            car = sedan;
+        }
+        
+    };
+    
+    
+    function draw(){  
+        ctx.clearRect(0, 0, c.width, c.height);
+        base_image = new Image();
+        base_image.src = background.Img;
+        carType = new Image();
+        carType.src = car.Img;
+        front = new Image();
+        front.src = car[x.value][0] ;
+        rear = new Image();
+        rear.src = car[x.value][1] ;
+        ctx.drawImage(base_image, 0, 0, 500,333);
+        ctx.drawImage(carType, 100, 150, 300,200);
+        ctx.drawImage(front, 100, 150, 300,200);
+        ctx.drawImage(rear, 100, 150, 300,200);
+        console.log(car[x.value][0]);
+    }
+ 
+</script>
+    
